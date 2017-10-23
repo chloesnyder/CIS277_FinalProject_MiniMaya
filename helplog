@@ -1,0 +1,72 @@
+HW07 HELPLOG
+
+
+APRIL 9
+ 2:34PM
+used stack overflow as a template for using JSONObjects. was suspicious that stack overflow wasn’t giving me the best way to do it (someone suggested using QVariantMaps) and talked to adam about it, who directed me to QJsonDocuments.
+
+
+5:57PM
+kept crashing when trying to draw the joint.
+adam scrolled through my code to demonstrate my lack of having ever initialized a joint lol.
+
+6:30PM
+as usual, adam clarified the bugs in my logic as well as my cod! the joints are not being drawn at their local coordinates, but rather their global transformation* local coordinates. the bind matrix on the hand is used for vertices to know how much they should move relative to a joint’s transformation. copied adam’s old cylinder cap code to be able to draw the vertices. was passing in vertices.size() rather than indices.size() as the elemCount, which ain’t right and meant I was only drawing half of all the circles. 
+
+
+11:38PM
+joint wasn’t drawing it’s children even though I called traverseJoints when I import the obj file. I realized I needed to traverse joints in paintGL so because my traverse function included my drawing function. Might think about separating the two. 
+
+
+APRIL 10
+1:49PM
+joints from child to parents weren’t drawing correctly. becca showed me how to test by trying different things with my code until something actually changed on the screen. apparently needed to take index.push_back(index of parent point) out of an if statement that checked if a  joint had  a parent. all joint instances needed to have the same number of VBOs. YAYYY
+
+6:02PM 
+to make custom class or not to make custom class? checked in with chloe. 
+
+6:45PM
+LOL 40 minutes later finally implemented QTreeWidget. Don’t forget to include Q_OBJECT in the header file!
+
+6:46PM
+all the methods in my header file had implementations in my cpp file for jointQTreeWidget. all I did was run qmake and it compiled fine. sometimes it really does work!
+
+7:18PM
+recursively changed the colors of the items in my QJointWidgetTree class thing using code from stack overflow for how to get the children of a parent widgetItem. 
+
+APRIL 13
+1:20 PM
+talked to kai about how to create a glsl file under the resources folder in qt creator.  
+
+1:36 
+talked to stephanie and kai about how to send in vec data to the shader program. learned that i had to create my own buffer and would have to keep track of the bind matrices. also clarified that i wouldn’t have to multiply inv(bind) * jointTrans * bind * vert’s, since the jointTrans already includes inv(bind) transformations.
+
+
+3:56PM
+talked to debanshu and adam about how to send in a mat4 of thingsQOpenGlShaderProgram and getIndexofmatrixArray. was directed to the documentation files of qopenglshaderprogram. 
+
+APRIL 14
+4:45PM
+learned from richard what the different parts of the shader program were 
+
+6:15PM
+walked through my code with Adam. he caught that i would need to send *size of ivec2s to the buffers rather than *size of vec2s because ints and floats have different sizes in memory. phew!
+
+7 - 9PM
+walked through the steps and scope of creating the shaders, creating functions for binding the jointID and jointWeight vectors. the binding needs to be done in  the scope of the MESH, and not just in the vertices themselves, because the ORDER in which the in for the jointIDs are read must be consistent in the order which the vertices are sent in. is pretty cray. 
+afterwards, talked about life and the future of DMD and stuff it was pretty great. 
+
+APRIL 16
+2:30PM
+posted on piazza for how to debug. kai and adam suggested making fs_col a function of the weights and ids being passed in.
+
+4:30PM (<— lol supposed to be hosting office hours)
+RICHAAAAAAAAAARD. basically held my hand as i stepped through debugging all my typos (had made ivecs for the jointIDs and vets for the jointWeights) (and then setUniformArray with jams for both) and stuff haha. 
+suggested testing my skel shader without the leaped values to see if it was joints and binds that weren’t working, and that helped dislodge my debugging funk. 
+
+5:10PM
+when cow mesh wasn’t updating as the joint positions were changing, and richard suggested calling mesh.create() every time the joint position gets updated. then verbally both talked through updating the joints being sent to the vbos, deciding when things needed to be cleared and what could be left alone(i.e. bind matrices never have to be recalculated)
+
+6:21PM
+gary helped me with the git stuff. i kept accidentally copying over old git files. just suggested that i clone into some separate file on my desktop and then copy over the git file. 
+

@@ -1,0 +1,16 @@
+HW07 README
+
+SELECTING JOINTS
+joints will highlight in white when selected in the Joint tree widget 
+the global world coordinates of every joint update in the Joint widget spin boxes.
+
+TRANSLATING AND ROTATING JOINTS
+spin boxes can be used to change joint transformations in world coordinates. parent transformations will cause their children to transform. 
+
+CALCIUM (because calcium gives you bones!)
+imports the the joint structure from the json file. 
+
+CONESTOGA
+binds the current joint skeleton to the current mesh. vertices will be bound to the two joints which are closest to them out of the entire joint structure. s
+you can tell the joints are bound when their names are highlighted in the qtreewidget. 
+ after being bound, moving joints will cause the mesh structure to change as well. 
